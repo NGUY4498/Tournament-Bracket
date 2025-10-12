@@ -19,7 +19,7 @@ public class Simulate {
         }
     }
 
-    public void handleMatch(Player playerOne, Player playerTwo) {
+    public void determineWinner(Player playerOne, Player playerTwo) {
         String ans;
         do {
             System.out.println("Who won? " + playerOne.getPlayerName() + " or " + playerTwo.getPlayerName() + "?");
@@ -38,26 +38,55 @@ public class Simulate {
         }
     }
 
-    public void runRound(List<Player> queue) {
+    public void runWinnersQueue(List<Player> queue) {
         List<Player> matches = new ArrayList<>(queue);
         for (int i = 0; i < matches.size(); i += 2) {
             Player first = matches.get(i);
             Player second = matches.get(i + 1);
-            handleMatch(first, second);
+            determineWinner(first, second);
         }
-        queue.removeIf(player -> player.getStatus() == Status.ELIMINATED);
     }
 
+    public void runLosersQueue(List<Player> queue) {
+        while(lobby.getLosersQueue().size() > 1){
+            Player first = lobby.getLosersQueue().get(0);
+            Player second = lobby.getLosersQueue().get(1);
+            determineWinner(first, second);
+            lobby.getLosersQueue().remove(first.getStatus() == Status.ELIMINATED ? first : second);
+        }
+    }
 
     /**
      * NEED TO FIGURE OUT HOW RUN LOSERS AND WINNERS QUEUE IN PARALLEL!!!!!!
      */
-    public void runGame(){
-        runRound(lobby.getWinnersQueue());
-        int lastGame = 2;
-        while(lobby.getWinnersQueue().size()>1){
-            runRound(lobby.getWinnersQueue());
-            runRound(lobby.getLosersQueue());
+    public void lastGame(){
+        lobby.moveToWinners(lobby.getLosersQueue().get(0));
+        Player playerOne = lobby.getWinnersQueue().get(0);
+        Player playerTwo = lobby.getWinnersQueue().get(1);
+        String ans;
+        int doubleElimination = 2;
+        while(doubleElimination > 0){
+            System.out.println("Who won? " + playerOne.getPlayerName() + " or " + playerTwo.getPlayerName() + "?");
+            ans = scanner.nextLine().trim();
+            if(ans.equals(playerTwo.getPlayerName())){
+                doubleElimination--;
+            }else{
+                lobby.getWinnersQueue().remove(playerTwo);
+                break;
+            }
         }
+        if(doubleElimination == 0){
+            lobby.getWinnersQueue().remove(playerOne);
+        }
+    }
+
+    public void runGame(){
+        runWinnersQueue(lobby.getWinnersQueue());
+        while(lobby.getWinnersQueue().size()>1){
+            runWinnersQueue(lobby.getWinnersQueue());
+            runLosersQueue(lobby.getLosersQueue());
+        }
+        lastGame();
+        System.out.println("Winner: " + lobby.getWinnersQueue().get(0).getPlayerName());
     }
 }
