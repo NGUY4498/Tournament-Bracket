@@ -17,7 +17,6 @@ public class Simulate {
         for (String name: player) {
             lobby.addPlayer(name);
         }
-        runRound(lobby.getWinnersQueue());
     }
 
     public void handleMatch(Player playerOne, Player playerTwo) {
@@ -54,6 +53,7 @@ public class Simulate {
      * NEED TO FIGURE OUT HOW RUN LOSERS AND WINNERS QUEUE IN PARALLEL!!!!!!
      */
     public void runGame(){
+        runRound(lobby.getWinnersQueue());
         int lastGame = 2;
         while(lobby.getWinnersQueue().size()>1){
             runRound(lobby.getWinnersQueue());
