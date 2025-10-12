@@ -59,34 +59,34 @@ public class Simulate {
     /**
      * NEED TO FIGURE OUT HOW RUN LOSERS AND WINNERS QUEUE IN PARALLEL!!!!!!
      */
-    public void lastGame(){
-        lobby.moveToWinners(lobby.getLosersQueue().get(0));
-        Player playerOne = lobby.getWinnersQueue().get(0);
-        Player playerTwo = lobby.getWinnersQueue().get(1);
-        String ans;
-        int doubleElimination = 2;
-        while(doubleElimination > 0){
-            System.out.println("Who won? " + playerOne.getPlayerName() + " or " + playerTwo.getPlayerName() + "?");
-            ans = scanner.nextLine().trim();
-            if(ans.equals(playerTwo.getPlayerName())){
-                doubleElimination--;
-            }else{
-                lobby.getWinnersQueue().remove(playerTwo);
-                break;
-            }
-        }
-        if(doubleElimination == 0){
-            lobby.getWinnersQueue().remove(playerOne);
-        }
-    }
 
-    public void runGame(){
+    public void runGame() {
         runWinnersQueue(lobby.getWinnersQueue());
-        while(lobby.getWinnersQueue().size()>1){
+        while (lobby.getWinnersQueue().size() > 1) {
             runWinnersQueue(lobby.getWinnersQueue());
             runLosersQueue(lobby.getLosersQueue());
         }
-        lastGame();
+        lobby.moveToWinners(lobby.getLosersQueue().get(0));
+        int doubleElimination = 2;
+
+        while (doubleElimination > 0) {
+            Player playerOne = lobby.getWinnersQueue().get(0);
+            Player playerTwo = lobby.getWinnersQueue().get(1);
+            System.out.println("Who won? " + playerOne.getPlayerName() + " or " + playerTwo.getPlayerName() + "?");
+            String ans = scanner.nextLine().trim();
+
+            if (ans.equals(playerTwo.getPlayerName())) {
+                doubleElimination--;
+                if (doubleElimination == 0) {
+                    lobby.getWinnersQueue().remove(playerOne);
+                }
+            } else if (ans.equals(playerOne.getPlayerName())) {
+                lobby.getWinnersQueue().remove(playerTwo);
+                break;
+            } else {
+                System.out.println("Invalid input. Try again.");
+            }
+        }
         System.out.println("Winner: " + lobby.getWinnersQueue().get(0).getPlayerName());
     }
 }
