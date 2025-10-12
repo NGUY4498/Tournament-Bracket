@@ -28,47 +28,42 @@ public class Simulate {
                 System.out.println("Invalid input. Try again.");
             }
         } while (!ans.equals(playerOne.getPlayerName()) && !ans.equals(playerTwo.getPlayerName()));
-
-        Player loser = ans.equals(playerOne.getPlayerName()) ? playerTwo : playerOne;    //Got this from stack post. Its a ternary operator that tests a condition and chooses one of two values..
+        Player loser = ans.equals(playerOne.getPlayerName()) ? playerTwo : playerOne;    //ternary operator that tests a condition and chooses one of two values based on the condition (found this online lol)
         if (loser.getStatus() == Status.WINNER) {
             loser.setStatus(Status.LOSER);
             lobby.moveToLosers(loser);
         } else if (loser.getStatus() == Status.LOSER) {
-            loser.setStatus(Status.ELIMINATED);
+            lobby.getLosersQueue().remove(loser);
         }
     }
 
-    public void runWinnersQueue(List<Player> queue) {
-        List<Player> matches = new ArrayList<>(queue);
-        for (int i = 0; i < matches.size(); i += 2) {
-            Player first = matches.get(i);
-            Player second = matches.get(i + 1);
-            determineWinner(first, second);
+    public void runQueue(List<Player> queue, boolean isWinnersQueue) {
+        if (isWinnersQueue) {
+            List<Player> matches = new ArrayList<>(queue);       //might remove this but wanted to avoid iterating issues...
+            for (int i = 0; i < matches.size() - 1; i += 2) {
+                Player first = matches.get(i);
+                Player second = matches.get(i + 1);
+                determineWinner(first, second);
+            }                                               //merged runLosers and runWinners into runQueue to make it easier to read...
+        } else {
+            while (queue.size() > 1) {
+                Player first = queue.get(0);
+                Player second = queue.get(1);
+                determineWinner(first, second);
+                Player loser = (first.getStatus() == Status.ELIMINATED) ? first : second;
+                queue.remove(loser);
+            }
         }
     }
 
-    public void runLosersQueue(List<Player> queue) {
-        while(lobby.getLosersQueue().size() > 1){
-            Player first = lobby.getLosersQueue().get(0);
-            Player second = lobby.getLosersQueue().get(1);
-            determineWinner(first, second);
-            lobby.getLosersQueue().remove(first.getStatus() == Status.ELIMINATED ? first : second);
-        }
-    }
-
-    /**
-     * NEED TO FIGURE OUT HOW RUN LOSERS AND WINNERS QUEUE IN PARALLEL!!!!!!
-     */
 
     public void runGame() {
-        runWinnersQueue(lobby.getWinnersQueue());
         while (lobby.getWinnersQueue().size() > 1) {
-            runWinnersQueue(lobby.getWinnersQueue());
-            runLosersQueue(lobby.getLosersQueue());
+            runQueue(lobby.getWinnersQueue(),true);
+            runQueue(lobby.getLosersQueue(),false);
         }
         lobby.moveToWinners(lobby.getLosersQueue().get(0));
         int doubleElimination = 2;
-
         while (doubleElimination > 0) {
             Player playerOne = lobby.getWinnersQueue().get(0);
             Player playerTwo = lobby.getWinnersQueue().get(1);
