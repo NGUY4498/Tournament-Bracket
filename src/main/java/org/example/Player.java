@@ -10,6 +10,7 @@ public class Player {
     private int score;  //idk if I need this. might remove.
     private Status status;
 
+
     public Player(String playerName) {
         this.playerName = playerName;
         this.score = 0;
