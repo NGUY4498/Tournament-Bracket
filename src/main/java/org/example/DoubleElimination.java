@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Handles the logic of running matches in a double-elimination tournament. It interacts with the user to determine winners,
  * updates player statuses, and runs rounds until the tournament is completed.
  */
-public class DoubleElimination implements Tournament {
+public class DoubleElimination implements TournamentInterface {
     private Scanner scanner = new Scanner(System.in);
     private List<Player> winnersQueue = new ArrayList<>();
     private List<Player> losersQueue = new ArrayList<>();
