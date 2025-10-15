@@ -22,6 +22,8 @@ public class DoubleElimination implements TournamentInterface {
         }
     }
 
+
+
     @Override
     public void determineWinner(Player playerOne, Player playerTwo) {
         String ans;
@@ -44,6 +46,7 @@ public class DoubleElimination implements TournamentInterface {
         }
     }
 
+
     @Override
     public void processQueue(List<Player> queue) {
         List<Player> tempQueue = new ArrayList<>(queue);
@@ -53,6 +56,7 @@ public class DoubleElimination implements TournamentInterface {
             determineWinner(first, second);
         }
     }
+
 
     @Override
     public void runGame() {
