@@ -6,12 +6,12 @@ public class Main {
     public static void main(String[] args){
 
         /**UPDATE TO RUN A DIFFERENT TOURNAMENT**/
-        SingleElimination simulate = new SingleElimination();
+        SingleEliminate simulate = new SingleEliminate();
 
         /**UPDATE THIS LIST TO ADD OR REMOVE PLAYERS**/
-        ArrayList<String> players = new ArrayList<>(Arrays.asList("Tom","Jack","Sam","Ryan"));
+        //ArrayList<String> players = new ArrayList<>(Arrays.asList("Tom","Jack","Sam","Ryan"));
 
-        simulate.addPlayers(players);
+        //simulate.addPlayers(players);
         simulate.runGame();
     }
 }
