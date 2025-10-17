@@ -5,7 +5,7 @@ public class Match {
     private Player winner;
     private Player playerA;
     private Player playerB;
-    private String bracketStatus;
+    private Status bracketStatus;
 
     private Match(Builder builder) {
         this.id = builder.id;
@@ -18,7 +18,7 @@ public class Match {
         private int id;
         private Player playerA;
         private Player playerB;
-        private String bracketStatus = "Winners";
+        private Status bracketStatus;
 
         public Builder playerA(Player playerA) {
             this.playerA = playerA;
@@ -28,7 +28,7 @@ public class Match {
             this.playerB = playerB;
             return this;
         }
-        public Builder bracketStatus(String status) {
+        public Builder bracketStatus(Status status) {
             this.bracketStatus = status;
             return this;
         }
