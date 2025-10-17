@@ -11,81 +11,31 @@ import java.util.Scanner;
  * updates player statuses, and runs rounds until the tournament is completed.
  */
 public class DoubleElimination implements TournamentInterface {
-    private Scanner scanner = new Scanner(System.in);
-    private List<Player> winnersQueue = new ArrayList<>();
-    private List<Player> losersQueue = new ArrayList<>();
+
 
     @Override
     public void addPlayers(ArrayList<String> playerNames) {
-        for (String name : playerNames) {
-            winnersQueue.add(new Player(name));
-        }
+
+
     }
 
 
 
     @Override
     public void determineWinner(Player playerOne, Player playerTwo) {
-        String ans;
-        do {
-            System.out.println("Who won? " + playerOne.getPlayerName() + " or " + playerTwo.getPlayerName() + "?");
-            ans = scanner.nextLine().trim();
-            if (!ans.equals(playerOne.getPlayerName()) && !ans.equals(playerTwo.getPlayerName())) {
-                System.out.println("Invalid input. Try again.");
-            }
-        } while (!ans.equals(playerOne.getPlayerName()) && !ans.equals(playerTwo.getPlayerName()));
 
-        Player loser = ans.equals(playerOne.getPlayerName()) ? playerTwo : playerOne;
-        if (loser.getStatus() == Status.WINNER) {
-            loser.setStatus(Status.LOSER);
-            winnersQueue.remove(loser);
-            losersQueue.add(loser);
-        } else if (loser.getStatus() == Status.LOSER) {
-            loser.setStatus(Status.ELIMINATED);
-            losersQueue.remove(loser);
-        }
     }
 
 
     @Override
-    public void processQueue(List<Player> queue) {
-        List<Player> tempQueue = new ArrayList<>(queue);
-        for (int i = 0; i < tempQueue.size() - 1; i += 2) {
-            Player first = tempQueue.get(i);
-            Player second = tempQueue.get(i + 1);
-            determineWinner(first, second);
-        }
+    public void processQueue() {
+
+
     }
 
 
     @Override
     public void runGame() {
-        while (winnersQueue.size() > 1) {
-            processQueue(winnersQueue);
-            processQueue(losersQueue);
-        }
 
-        winnersQueue.add(losersQueue.get(0));
-        int doubleElimination = 2;
-        while (winnersQueue.size() > 1) {
-            Player playerOne = winnersQueue.get(0);
-            Player playerTwo = winnersQueue.get(1);
-
-            System.out.println("Who won? " + playerOne.getPlayerName() + " or " + playerTwo.getPlayerName() + "?");
-            String ans = scanner.nextLine().trim();
-
-            if (ans.equals(playerTwo.getPlayerName())) {
-                doubleElimination--;
-                if (doubleElimination == 0) {
-                    winnersQueue.remove(playerOne);
-                }
-            } else if (ans.equals(playerOne.getPlayerName())) {
-                winnersQueue.remove(playerTwo);
-                break;
-            } else {
-                System.out.println("Invalid input. Try again.");
-            }
-        }
-        System.out.println("Winner: " + winnersQueue.get(0).getPlayerName());
     }
 }

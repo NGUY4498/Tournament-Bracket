@@ -13,7 +13,7 @@ public interface TournamentInterface {
      * Managing match pairings and determining which players advance or move to another bracket.
      * @param matches the list of players currently queued for matches
      */
-    void processQueue(List<Player> matches);
+    void processQueue();
 
 
     /**
