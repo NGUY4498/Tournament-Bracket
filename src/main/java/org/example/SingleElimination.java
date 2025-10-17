@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class SingleElimination implements TournamentInterface{
     List<Player> queue = new ArrayList<>();
+    private List<Match> pastMatches = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
     @Override
@@ -27,7 +28,13 @@ public class SingleElimination implements TournamentInterface{
     public void determineWinner(Player playerOne, Player playerTwo) {
         System.out.println("Who won?" + playerOne.getPlayerName() + " or " + playerTwo.getPlayerName());
         String ans = scanner.nextLine().trim();
+        Match match = new Match.Builder()
+                .playerA(playerOne)
+                .playerB(playerTwo)
+                .winner(ans)
+                .build();
         queue.remove(ans.equals(playerOne.getPlayerName()) ? playerTwo : playerOne);
+        pastMatches.add(match);
     }
 
     @Override
