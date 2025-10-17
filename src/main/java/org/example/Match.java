@@ -21,13 +21,16 @@ public class Match {
         private String bracketStatus = "Winners";
 
         public Builder playerA(Player playerA) {
-            this.playerA = playerA; return this;
+            this.playerA = playerA;
+            return this;
         }
         public Builder playerB(Player playerB) {
-            this.playerB = playerB; return this;
+            this.playerB = playerB;
+            return this;
         }
         public Builder bracketStatus(String status) {
-            this.bracketStatus = status; return this;
+            this.bracketStatus = status;
+            return this;
         }
         public Match build() {
             return new Match(this);
