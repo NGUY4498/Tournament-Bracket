@@ -2,13 +2,14 @@ package org.example;
 
 public class Match {
     private final int id;
-    private Player winner;
+    private String winner;
     private Player playerA;
     private Player playerB;
     private Status bracketStatus;
 
     private Match(Builder builder) {
         this.id = builder.id;
+        this.winner = builder.winner;
         this.playerA = builder.playerA;
         this.playerB = builder.playerB;
         this.bracketStatus = builder.bracketStatus;
@@ -16,10 +17,15 @@ public class Match {
 
     public static class Builder {
         private int id;
+        private String winner;
         private Player playerA;
         private Player playerB;
         private Status bracketStatus;
 
+        public Builder winner(String winner) {
+            this.winner = winner;
+            return this;
+        }
         public Builder playerA(Player playerA) {
             this.playerA = playerA;
             return this;
