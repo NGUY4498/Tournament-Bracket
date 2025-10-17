@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SingleElimination implements TournamentInterface{
-    List<Player> queue = new ArrayList<>();
+    private List<Player> queue = new ArrayList<>();
     private List<Match> pastMatches = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
 
@@ -43,5 +43,14 @@ public class SingleElimination implements TournamentInterface{
             processQueue(queue);
         }
         System.out.println("Winner is " + queue.get(0).getPlayerName());
+        printHistory();
+    }
+
+    public void printHistory(){
+        for(Match m : pastMatches){
+            System.out.println(m.getPlayerA().getPlayerName()+" vs "
+                    +m.getPlayerB().getPlayerName()+ " Winner is:"+
+                    m.getWinner());
+        }
     }
 }

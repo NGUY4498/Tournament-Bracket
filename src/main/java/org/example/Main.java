@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args){
 
         /**UPDATE TO RUN A DIFFERENT TOURNAMENT**/
-        DoubleElimination simulate = new DoubleElimination();
+        SingleElimination simulate = new SingleElimination();
 
         /**UPDATE THIS LIST TO ADD OR REMOVE PLAYERS**/
         ArrayList<String> players = new ArrayList<>(Arrays.asList("Tom","Jack","Sam","Ryan"));
