@@ -6,22 +6,15 @@ package org.example;
  * state in the tournament (WINNER, LOSER, ELIMINATED)
  */
 public class Player {
+    private int userID;
     private String playerName;
-    private int score;  //idk if I need this. might remove.
     private Status status;
-
-
     public Player(String playerName) {
         this.playerName = playerName;
-        this.score = 0;
         this.status = Status.WINNER;
     }
-
     public String getPlayerName() {
         return playerName;
-    }
-    public int getScore() {
-        return score;
     }
     public Status getStatus() {
         return status;
