@@ -7,6 +7,7 @@ public class Match {
     private Player playerB;
     private Status bracketStatus;
 
+
     private Match(Builder builder) {
         this.id = builder.id;
         this.winner = builder.winner;
@@ -41,6 +42,25 @@ public class Match {
         public Match build() {
             return new Match(this);
         }
+    }
+    public int getId() {
+        return id;
+    }
+
+    public Player getPlayerA() {
+        return playerA;
+    }
+
+    public Player getPlayerB() {
+        return playerB;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public Status getBracketStatus() {
+        return bracketStatus;
     }
 }
 

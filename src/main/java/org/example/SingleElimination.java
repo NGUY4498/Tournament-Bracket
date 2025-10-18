@@ -1,13 +1,16 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class SingleElimination implements TournamentInterface{
-    List<Player> queue = new ArrayList<>();
+    private List<Player> queue = new ArrayList<>();
     private List<Match> pastMatches = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
+    public ArrayList<String> players = new ArrayList<>(Arrays.asList("Tom","Jack","Sam","Ryan"));
+
 
     @Override
     public void addPlayers(ArrayList<String> playerNames) {
@@ -39,9 +42,19 @@ public class SingleElimination implements TournamentInterface{
 
     @Override
     public void runGame() {
+        addPlayers(players);
         while(queue.size() > 1){
             processQueue(queue);
         }
         System.out.println("Winner is " + queue.get(0).getPlayerName());
+        printHistory();
+    }
+
+    public void printHistory(){
+        for (Match match : pastMatches) {
+            System.out.println(match.getPlayerA().getPlayerName()+" vs "+
+                    match.getPlayerB().getPlayerName()+" Winner: "+
+                    match.getWinner());
+        }
     }
 }

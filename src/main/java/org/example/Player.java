@@ -9,6 +9,7 @@ public class Player {
     private int userID;
     private String playerName;
     private Status status;
+
     public Player(String playerName) {
         this.playerName = playerName;
         this.status = Status.WINNER;

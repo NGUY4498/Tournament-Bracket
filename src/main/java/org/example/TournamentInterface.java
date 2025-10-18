@@ -11,7 +11,7 @@ public interface TournamentInterface {
     /**
      * Handles the processing or parsing logic of a tournament round (WILL NOT RUN ALL ROUNDS AT ONCE. JUST ONE.).
      * Managing match pairings and determining which players advance or move to another bracket.
-     * @param matches the list of players currently queued for matches
+     * @param queue the list of players currently queued for matches
      */
     void processQueue(List<Player> queue);
 
