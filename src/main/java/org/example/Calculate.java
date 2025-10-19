@@ -11,7 +11,7 @@ public class Calculate {
      * @return the total byes
      */
     public int numberOfByes(int totalPlayers){
-        return (int) (Math.pow(2, Math.ceil(Math.log(totalPlayers) / Math.log(2))) - totalPlayers);
+        return (int)(Math.pow(2, (int)(Math.log(totalPlayers) / Math.log(2) + 0.999999999)) - totalPlayers);
     }
 
     /**
