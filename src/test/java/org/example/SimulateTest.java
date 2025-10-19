@@ -1,17 +1,27 @@
 package org.example;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimulateTest {
+
+
     @Test
-    void testSimulateLoadPlayers() {
-        DoubleElimination simulate = new DoubleElimination();
-        ArrayList<String> players = new ArrayList<>(Arrays.asList("Tom","Jack","Sam","Ryan"));
-        simulate.addPlayers(players);
-        assertEquals(4, simulate.lobby.getWinnersQueue().size());
+    void oddTotalPlayers() {
+        Calculate calc = new Calculate();
+        assertEquals(3, calc.numberOfByes(5));
     }
+
+    @Test
+    void evenPowerOfTwoByes() {
+        Calculate calc = new Calculate();
+        assertEquals(0, calc.numberOfByes(4));
+    }
+
+    @Test
+    void evenNonPowerOfTwoByes() {
+        Calculate calc = new Calculate();
+        assertEquals(6, calc.numberOfByes(10));
+    }
+
 }
