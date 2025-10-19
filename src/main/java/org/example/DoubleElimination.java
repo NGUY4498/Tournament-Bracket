@@ -37,11 +37,13 @@ public class DoubleElimination implements TournamentInterface {
                 loser.setStatus(Status.LOSER);
                 winnersQueue.remove(loser);
                 losersQueue.add(loser);
+                /*
                 Match match = new Match.Builder()
-                        .playerA(playerOne)
+                        .playerA(playerOne)             //Still in the process of incorporating this
                         .playerB(playerTwo)
                         .bracketStatus(Status.WINNER)
                         .build();
+                 */
                 break;
             case LOSER:
                 loser.setStatus(Status.ELIMINATED);
